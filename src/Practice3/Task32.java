@@ -87,39 +87,36 @@ public class Task32 {
             boolean newFlag = false;
             while(!newFlag) {
                 ans = s.nextInt();
+                String msg = "Товар добавлен успешно. Итоговая сумма заказа:";
                 switch(ans) {
                     case 1: {
                         sum /= 100;
-                        System.out.printf("Товар добавлен успешно. Итоговая сумма заказа: %.2f USD", sum);
-                        newFlag = true;
-                        break;
+                        System.out.printf("%s %.2f USD", msg, sum);
+                        newFlag = true; break;
                     }
                     case 2: {
                         sum /= 105;
-                        System.out.printf("Товар добавлен успешно. Итоговая сумма заказа: %.2f EUR", sum);
-                        newFlag = true;
-                        break;
+                        System.out.printf("%s %.2f EUR", msg, sum);
+                        newFlag = true; break;
                     }
                     case 3: {
-                        System.out.printf("Товар добавлен успешно. Итоговая сумма заказа: %.2f RUB", sum);
-                        newFlag = true;
-                        break;
+                        System.out.printf("%s %.2f RUB", msg, sum);
+                        newFlag = true; break;
                     }
                     case 4: {
                         sum *= 5;
-                        System.out.printf("Товар добавлен успешно. Итоговая сумма заказа: %.2f KZT", sum);
-                        newFlag = true;
-                        break;
+                        System.out.printf("%s %.2f KZT", msg, sum);
+                        newFlag = true;break;
                     }
                     default: {
                         System.out.println("Недопустимое значение!");
-                        newFlag = false;
+                        newFlag = false; break;
                     }
                 }
             }
         }
         else {
-            System.out.printf("Корзина пуста. Выход...", sum);
+            System.out.print("Корзина пуста. Выход...");
         }
     }
 }
