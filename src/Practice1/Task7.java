@@ -19,12 +19,19 @@ public class Task7 {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         int n = 0;
-        do {
-            System.out.print("Введите n ");
+        while (true) {
+            System.out.print("Введите n (нажмите Ctrl+D, чтобы завершить ввод) ");
+            if (!s.hasNextInt()) break;
             n = s.nextInt();
-            if(n < 0) { System.out.println("Число должно быть положительным"); }
-            else if(n > 10000) { System.out.println("Число не должно превышать 10000"); }
-            else { fac(n); }
-        } while(n < 0 || n > 10000);
+            if(n < 0) {
+                System.out.println("Число должно быть положительным");
+            }
+            else if(n > 10000) {
+                System.out.println("Число не должно превышать 10000");
+            }
+            else {
+                fac(n);
+            }
+        }
     }
 }
