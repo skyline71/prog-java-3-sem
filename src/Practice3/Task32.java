@@ -5,7 +5,7 @@ public class Task32 {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         System.out.println("Добро пожаловать в книжный интернет-магазин Маст-рид! Наш ассортимент:");
-        Book.Bookshelf bookshelf = new Book.Bookshelf(5);
+        Bookshelf bookshelf = new Bookshelf(5);
         Book newBook = new Book("Булкагов М.А.", "Мастер и Маргарита", 670.99, 3, 0);
         bookshelf.addBook(newBook);
         newBook = new Book("Булкагов М.А.", "Белая Гвардия", 540.50, 5, 1);
@@ -152,35 +152,34 @@ class Book {
     public int getId () {
         return id;
     }
+}
+class Bookshelf {
+    private int size;
+    private int top;
+    private Book[] books;
 
-    static class Bookshelf {
-        private int size;
-        private int top;
-        private Book[] books;
+    public Bookshelf(int number) {
+        size = number;
+        books = new Book[size];
+        top = 0;
+    }
 
-        public Bookshelf(int number) {
-            size = number;
-            books = new Book[size];
-            top = 0;
-        }
+    public void addBook(Book newBook) {
+        books[top] = newBook;
+        top++;
+    }
 
-        public void addBook(Book newBook) {
-            books[top] = newBook;
-            top++;
-        }
+    public Book getBookById(int id) {
+        return books[id];
+    }
 
-        public Book getBookById(int id) {
-            return books[id];
-        }
-
-        public void getBooks() {
-            for (int i = 0; i < size; i++) {
-                System.out.printf("Книга #%d\n", i+1);
-                System.out.printf("Автор: %s, ", books[i].getAuthor());
-                System.out.printf("Название: %s, ", books[i].getTitle());
-                System.out.printf("Количество: %s, ", books[i].getAmount());
-                System.out.printf("Цена: %s RUB\n", books[i].getPrice());
-            }
+    public void getBooks() {
+        for(int i = 0; i < size; i++) {
+            System.out.printf("Книга #%d\n", i+1);
+            System.out.printf("Автор: %s, ", books[i].getAuthor());
+            System.out.printf("Название: %s, ", books[i].getTitle());
+            System.out.printf("Количество: %s, ", books[i].getAmount());
+            System.out.printf("Цена: %s RUB\n", books[i].getPrice());
         }
     }
 }
