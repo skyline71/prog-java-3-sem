@@ -23,15 +23,9 @@ public class Task13 {
 
     static boolean isSorted(int[] array) {
         int n = array.length;
-        int[] arrTmp = new int[n];
-        for(int i = 0; i < n; i++) {
-            arrTmp[i] = array[i];
-        }
-        Arrays.sort(arrTmp);
-        for(int i = 0; i < n; i++) {
-            if(array[i] != arrTmp[i]) { return false; }
-            for(int j = 0; j < n; j++) {
-                if(i != j && array[i] == array[j]) { return false; }
+        for(int i = 1; i < n; i++) {
+            if(array[i] <= array[i-1]) {
+                return false;
             }
         }
         return true;

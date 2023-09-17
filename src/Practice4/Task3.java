@@ -2,6 +2,36 @@ package Practice4;
 
 import java.util.Scanner;
 public class Task3 {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        Bookshelf bookshelf = new Bookshelf(15);
+        bookshelf.fillBookshelf();
+        User user = new User();
+        System.out.println("Рады приветствовать Вас в книжном интернет-магазине Маст-рид! Пожалуйста, пройдите авторизацию");
+        System.out.print("Введите логин ");
+        while(!user.setName(s.nextLine())) System.out.print("Введите логин ");
+        System.out.print("Введите пароль ");
+        while(!user.setPassword(s.nextLine())) System.out.print("Введите пароль ");
+
+        System.out.println("Выберите соответсвующий каталог (Нажмите цифру на клавиатуре)");
+        System.out.printf("1 - %s\n2 - %s\n3 - %s\n", Genre.ART.getTranslation(),
+                Genre.SCIENCE.getTranslation(),Genre.SELFHELP.getTranslation());
+        int key = 0;
+        while(true) {
+            switch(s.nextLine()) {
+                case "1": bookshelf.getArtBooks(); key = 1; break;
+                case "2": bookshelf.getScienceBooks(); key = 2; break;
+                case "3": bookshelf.getSelfhelpBooks(); key = 3; break;
+                default: System.out.println("Недопустимое значение!"); continue;
+            }
+            break;
+        }
+
+        System.out.println("\nДобавить товар в корзину");
+        double sum = bookshelf.getOrderAmount(key);
+        payOrder(sum);
+    }
+
     static void payOrder(double sum) {
         Scanner s = new Scanner(System.in);
         if(sum != 0) {
@@ -20,7 +50,7 @@ public class Task3 {
                     s.nextLine();
                 }
                 ans = s.nextInt();
-                String msg = "Товар добавлен успешно. Итоговая сумма заказа:";
+                String msg = "Прекрасный выбор! Итоговая сумма заказа:";
                 switch(ans) {
                     case 1: {
                         sum /= 100;
@@ -52,36 +82,6 @@ public class Task3 {
             System.out.print("Корзина пуста. Выход...");
         }
     }
-
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        Bookshelf bookshelf = new Bookshelf(15);
-        bookshelf.fillBookshelf();
-        User user = new User();
-        System.out.println("Рады приветствовать Вас в книжном интернет-магазине Маст-рид! Пожалуйста, пройдите авторизацию");
-        System.out.print("Введите логин ");
-        while(!user.setName(s.nextLine())) System.out.print("Введите логин ");
-        System.out.print("Введите пароль ");
-        while(!user.setPassword(s.nextLine())) System.out.print("Введите пароль ");
-
-        System.out.println("Выберите соответсвующий каталог (Нажмите цифру на клавиатуре)");
-        System.out.printf("1 - %s\n2 - %s\n3 - %s\n", Genre.ART.getTranslation(),
-                Genre.SCIENCE.getTranslation(),Genre.SELFHELP.getTranslation());
-        int key = 0;
-        while(true) {
-            switch(s.nextLine()) {
-                case "1": bookshelf.getArtBooks(); key = 1; break;
-                case "2": bookshelf.getScienceBooks(); key = 2; break;
-                case "3": bookshelf.getSelfhelpBooks(); key = 3; break;
-                default: System.out.println("Недопустимое значение!"); continue;
-            }
-            break;
-        }
-
-        System.out.println("\nДобавить товар в корзину");
-        double sum = bookshelf.getOrderAmount(key);
-        payOrder(sum);
-    }
 }
 
 class Book {
@@ -90,13 +90,15 @@ class Book {
     private double price;
     private int amount;
     private int id;
+    private Genre genre;
 
-    public Book(String authorName, String title, double price, int amount, int id) {
+    public Book(String authorName, String title, double price, int amount, int id, Genre genre) {
         this.author = authorName;
         this.title = title;
         this.price = price;
         this.amount = amount;
         this.id = id;
+        this.genre = genre;
     }
 
     public String getAuthor () {
@@ -114,6 +116,7 @@ class Book {
     public int getId () {
         return id;
     }
+    public Genre getGenre() { return genre; }
 }
 class Bookshelf {
     private int size;
@@ -131,14 +134,12 @@ class Bookshelf {
         top++;
     }
 
-    public void getBooks(int begin, int end) {
-        for(int i = begin; i < end; i++) {
-            System.out.printf("Книга #%d\t\t", (i%5)+1);
-            System.out.printf("Автор: %s, ", books[i].getAuthor());
-            System.out.printf("Название: %s, ", books[i].getTitle());
-            System.out.printf("Количество: %s, ", books[i].getAmount());
-            System.out.printf("Цена: %s RUB\n", books[i].getPrice());
-        }
+    public void getBookInfo(int id) {
+        System.out.printf("Книга #%d\t\t", ((books[id].getId())%5)+1);
+        System.out.printf("Автор: %s, ", books[id].getAuthor());
+        System.out.printf("Название: %s, ", books[id].getTitle());
+        System.out.printf("Количество: %s, ", books[id].getAmount());
+        System.out.printf("Цена: %s RUB \n", books[id].getPrice());
     }
 
     public Book getBookById(int id) {
@@ -156,21 +157,43 @@ class Bookshelf {
         double[] prices = new double[]{670.99, 540.50, 460.00, 799.99, 950.00, 375.50, 399.99, 299.00, 270.50,
                 329.00, 699.99, 550.00, 730.50, 450.00, 560.00};
         int[] amounts = new int[]{8, 3, 4, 10, 5, 2, 5, 12, 4, 16, 5, 11, 10, 13, 14};
+        Genre genre = Genre.ART;
         Book newBook;
         for(int i = 0; i < size; i++) {
-            newBook = new Book(authors[i], titles[i], prices[i], amounts[i], i);
+            if(i >= 0 && i < 5) {
+                genre = Genre.ART;
+            }
+            else if(i >= 5 && i < 10) {
+                genre = Genre.SCIENCE;
+            }
+            else if(i >= 10 && i < 15) {
+                genre = Genre.SELFHELP;
+            }
+            newBook = new Book(authors[i], titles[i], prices[i], amounts[i], i, genre);
             addBook(newBook);
         }
     }
 
     public void getArtBooks() {
-        getBooks(0,5);
+        for(int i = 0; i < books.length; i++) {
+            if(getBookById(i).getGenre() == Genre.ART) {
+                getBookInfo(i);
+            }
+        }
     }
     public void getScienceBooks() {
-        getBooks(5,10);
+        for(int i = 0; i < books.length; i++) {
+            if(getBookById(i).getGenre() == Genre.SCIENCE) {
+                getBookInfo(i);
+            }
+        }
     }
     public void getSelfhelpBooks() {
-        getBooks(10,15);
+        for(int i = 0; i < books.length; i++) {
+            if(getBookById(i).getGenre() == Genre.SELFHELP) {
+                getBookInfo(i);
+            }
+        }
     }
 
     public boolean checkBooksNumber(int count, int key, int loop) {
