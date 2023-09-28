@@ -138,18 +138,15 @@ class Book {
         private int amount;
         private int top;
         private Book[] books;
-
         public Bookshelf(int number) {
             amount = number;
             books = new Book[amount];
             top = 0;
         }
-
         public void addBook(Book newBook) {
             books[top] = newBook;
             top++;
         }
-
         public Book[] getBack() {
             Book[] backBooks;
             int minYear = Integer.MAX_VALUE;

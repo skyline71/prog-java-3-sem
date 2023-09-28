@@ -17,3 +17,4 @@ public class Task3 {
         System.out.println("Среднее арифметическое = " + (double)sum/n);
     }
 }
+

@@ -1,7 +1,6 @@
 package Practice1;
 
 import java.util.Scanner;
-import java.util.Arrays;
 public class Task4 {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
@@ -29,3 +28,4 @@ public class Task4 {
         System.out.println("Min = " + min);
     }
 }
+

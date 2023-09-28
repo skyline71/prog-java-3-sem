@@ -1,5 +1,4 @@
 package Practice3;
-
 import java.util.Scanner;
 public class Task32 {
     public static void main(String[] args) {
@@ -120,8 +119,6 @@ public class Task32 {
         }
     }
 }
-
-
 class Book {
     private String author;
     private String title;
@@ -183,3 +180,4 @@ class Bookshelf {
         }
     }
 }
+

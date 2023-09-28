@@ -195,7 +195,6 @@ class Bookshelf {
             }
         }
     }
-
     public boolean checkBooksNumber(int count, int key, int loop) {
         int[] counts = new int[5];
         switch(key) {
