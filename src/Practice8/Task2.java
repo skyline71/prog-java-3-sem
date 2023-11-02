@@ -25,3 +25,4 @@ public class Task2 {
         frame.add(pane, BorderLayout.CENTER);
     }
 }
+
