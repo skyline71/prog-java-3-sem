@@ -2,7 +2,7 @@ package Practice15;
 
 public class MVCPatternEmployee {
     public static void main(String[] args) {
-        Employee model =  retrieveEmployeeFromDatabase();
+        Employee model = retrieveEmployeeFromDatabase();
         EmployeeView view = new EmployeeView();
         EmployeeController controller = new EmployeeController(model, view);
         controller.updateView();
@@ -17,3 +17,5 @@ public class MVCPatternEmployee {
         return employee;
     }
 }
+
+
