@@ -3,19 +3,20 @@ package Practice12;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 
-public class Task1 {
+public class Task2 {
     public static void main(String[] args) {
-        SolutionTask1 task1 = new SolutionTask1();
-        List<Integer> list = task1.getPlayers();
-        task1.pushPlayers(list);
-        task1.playGame();
+        SolutionTask2 task2 = new SolutionTask2();
+        List<Integer> list = task2.getPlayers();
+        task2.pushPlayers(list);
+        task2.playGame();
     }
 }
 
-class SolutionTask1 {
-    private List<Integer> cards1 = new ArrayList<>();
-    private List<Integer> cards2 = new ArrayList<>();
+class SolutionTask2 {
+    private ArrayDeque<Integer> cards1 = new ArrayDeque<>();
+    private ArrayDeque<Integer> cards2 = new ArrayDeque<>();
     private int count = 0;
 
     public List<Integer> getPlayers() {
@@ -37,9 +38,9 @@ class SolutionTask1 {
     public void pushPlayers(List<Integer> players) {
         for (int i = 0; i < players.size(); i++) {
             if (i < players.size()/2) {
-                cards1.add(players.get(i));
+                cards1.offerFirst((players.get(i)));
             } else {
-                cards2.add(players.get(i));
+                cards2.offerFirst((players.get(i)));
             }
         }
     }
@@ -59,17 +60,15 @@ class SolutionTask1 {
                 }
                 return;
             }
-            val1 = cards1.get(0);
-            val2 = cards2.get(0);
-            cards1.remove(0);
-            cards2.remove(0);
+            val1 = cards1.pollLast();
+            val2 = cards2.pollLast();
             if(val1 < val2 || (val1 == 9 && val2 == 0)) {
-                cards1.add(val1);
-                cards1.add(val2);
+                cards1.offerFirst(val1);
+                cards1.offerFirst(val2);
             }
             else {
-                cards2.add(val1);
-                cards2.add(val2);
+                cards2.offerFirst(val1);
+                cards2.offerFirst(val2);
             }
             count++;
         }
