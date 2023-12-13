@@ -25,7 +25,6 @@ class ArrayQueueADT {
             queue.offer(i);
         }
     }
-
     public Queue getQueue() {
         return queue;
     }
@@ -34,7 +33,6 @@ class ArrayQueueADT {
         queue.offer(value);
         return queue;
     }
-
     public int element(){
         return (int)queue.element();
     }

@@ -7,3 +7,4 @@ public class CalcPatternMVC {
         CalcController controller = new CalcController(model, view);
     }
 }
+

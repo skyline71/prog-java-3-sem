@@ -31,38 +31,30 @@ class ArrayQueueModule {
         this.size = size;
         setValues();
     }
-
     public void setValues() {
         for(int i = 0; i < size; i++) {
             elements[i] = i;
         }
     }
-
     public int[] getValues() {
         return elements;
     }
-
     public Queue enqueue(Queue queue, int value) {
         queue.offer(value);
         return queue;
     }
-
     public int element(Queue queue){
         return (int)queue.element();
     }
-
     public int dequeue(Queue queue) {
         return (int)queue.poll();
     }
-
     public int size(Queue queue){
         return queue.size();
     }
-
     public boolean isEmpty(Queue queue){
         return queue.isEmpty();
     }
-
     public Queue clear(Queue queue) {
         queue.clear();
         return queue;

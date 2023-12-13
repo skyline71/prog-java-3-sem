@@ -53,7 +53,6 @@ class ArrayQueue {
     public boolean isEmpty(ArrayQueue arrayQueue){
         return getQueue(arrayQueue).isEmpty();
     }
-
     public Queue clear(ArrayQueue arrayQueue) {
         getQueue(arrayQueue).clear();
         return getQueue(arrayQueue);
